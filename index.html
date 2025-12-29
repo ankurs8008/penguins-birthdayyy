@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🤍</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ---------- SURPRISE SCREEN ---------- */
+#surprise {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 1s ease;
+}
+
+.heart {
+    font-size: 80px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* ---------- MAIN SCREEN ---------- */
+#main {
+    display: none;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* LEFT TEXT */
+#textBox {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+}
+
+/* RIGHT PENGUIN */
+#penguinBox {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#penguin {
+    width: 220px;
+    animation: dance 1.2s infinite ease-in-out;
+}
+
+@keyframes dance {
+    0% { transform: rotate(0deg) translateY(0); }
+    25% { transform: rotate(4deg) translateY(-6px); }
+    50% { transform: rotate(0deg) translateY(0); }
+    75% { transform: rotate(-4deg) translateY(-6px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SURPRISE -->
+<div id="surprise">
+    <div class="heart">💗</div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+    <div id="textBox"></div>
+    <div id="penguinBox">
+        <img src="penguin.png" id="penguin" alt="Cute Penguin">
+    </div>
+</div>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const messages = [
+    "Hey, pretty lady 🤍",
+    "Many, many happy returns of the day.",
+    "Happy birthday, baby.",
+    "I hope life gives you all the beautiful things you wish for.",
+    "Always stay lively, curious, and full of light.",
+    "Be happy with or without me. Your happiness matters most.",
+    "Never do anything that ruins your image in your own eyes.",
+    "Live life to the fullest. Enjoy the fun, but always take time to pause and breathe.",
+    "Once again, happy birthday 🤍🤍🤍"
+];
+
+const surprise = document.getElementById("surprise");
+const main = document.getElementById("main");
+const textBox = document.getElementById("textBox");
+const music = document.getElementById("music");
+
+surprise.addEventListener("click", () => {
+    surprise.style.opacity = "0";
+
+    setTimeout(() => {
+        surprise.style.display = "none";
+        main.style.display = "flex";
+        music.play();
+        showMessages();
+    }, 1000);
+});
+
+function showMessages() {
+    let i = 0;
+    function next() {
+        if (i < messages.length) {
+            textBox.innerHTML += messages[i] + "<br><br>";
+            i++;
+            setTimeout(next, 2200);
+        }
+    }
+    next();
+}
+</script>
+
+</body>
+</html>
